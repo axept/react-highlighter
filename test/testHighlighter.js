@@ -92,4 +92,11 @@ describe('Highlight element', function() {
     var element = React.createElement(Highlight, {search: /([A-Za-z])+/}, longString);
     expect(TestUtils.renderIntoDocument.bind(TestUtils, element)).not.to.throw(Error);
   });
+
+  it('should highlight only first element if option is set', function() {
+    var element = React.createElement(Highlight, {search: /(abc)/, matchFirstOnly: true}, 'abc and abc or no');
+    var node = TestUtils.renderIntoDocument(element);
+    var matches = TestUtils.scryRenderedDOMComponentsWithTag(node, 'strong');
+      expect(matches.length).to.equal(1);
+    });
 });
